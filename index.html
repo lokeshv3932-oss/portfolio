@@ -143,6 +143,13 @@
     display:flex;
     gap:1.6rem;
     overflow-x:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .topbar-nav::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
   }
   .topbar-nav a{
     text-decoration:none;
