@@ -430,6 +430,7 @@
   }
   .entry-org{ font-size:1.22rem; font-weight:800; color:#fff; }
   .entry-role{ font-size:0.97rem; color:var(--ink-soft); margin-bottom:1.1rem; }
+  .entry-desc{ font-size:0.94rem; color:var(--ink-soft); margin:0 0 1.1rem; max-width:65ch; }
   .entry ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:0.55rem; }
   .entry li{ padding-left:1.15rem; position:relative; font-size:0.94rem; color:var(--ink-soft); }
   .entry li::before{
@@ -536,6 +537,7 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#summary">Summary</a></li>
         <li><a href="#stack">Stack</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -552,6 +554,7 @@
     <h1 class="serif">Lokesh Vinnakota</h1>
     <p class="hero-role">6+ years designing and delivering enterprise web applications end-to-end — from React.js and Angular interfaces to Java/Spring Boot services and the databases behind them.</p>
     <p class="hero-lede">Currently building full stack features for a healthcare payer platform at CVS Health: React.js UIs backed by Spring Boot REST APIs, Hibernate and SQL data layers, and microservices integration via JMS and Apache Camel. Comfortable owning a feature from requirement to production, and working directly with clients to get there.</p>
+    <p class="hero-lede">While completing my Master's at the University of Cincinnati, I designed and built <strong>Symmes Fleet Parking &amp; Repair</strong> — a full stack parking reservation and payment platform (Next.js, Spring Boot, Stripe) — from scratch. See it under Projects below.</p>
 
     <div class="hero-current">
       <span class="dot" aria-hidden="true"></span>
@@ -732,9 +735,34 @@
     </div>
   </section>
 
-  <section id="experience">
+  <section id="projects">
     <div class="section-head">
       <span class="section-tag">03</span>
+      <h2 class="section-title serif">Projects</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="changelog">
+      <article class="entry glass">
+        <div class="entry-head">
+          <span class="entry-org serif">Symmes Fleet Parking &amp; Repair</span>
+          <a class="version-tag tabular" href="https://github.com/lokeshv3932-oss/Parking" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <div class="entry-role">Personal full stack project — built during my Master's at the University of Cincinnati</div>
+        <p class="entry-desc">A full stack reservation platform for a 300-spot truck/trailer parking and repair facility in Fairfield, Ohio — handling real-time spot availability, mechanic service requests, and end-to-end payment processing.</p>
+        <ul>
+          <li>Built a Next.js/TypeScript front-end with Tailwind CSS for public booking and mechanic request forms, plus an admin dashboard with JWT-based staff login.</li>
+          <li>Designed a Spring Boot (Java 17) backend on PostgreSQL, using database-level constraints to prevent concurrent booking conflicts across 300 spots.</li>
+          <li>Integrated Stripe PaymentIntents and webhooks as the source of truth for payments, with a 15-minute payment hold window and automated expiration of abandoned holds.</li>
+          <li>Containerized local development with Docker Compose; deployed the front-end on Vercel, backend on Render, and database on Neon.</li>
+        </ul>
+        <div class="env-line"><b>STACK</b> — Next.js · TypeScript · Tailwind CSS · Spring Boot · Java 17 · PostgreSQL (Neon) · Stripe · JWT · Docker Compose · Vercel · Render</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head">
+      <span class="section-tag">04</span>
       <h2 class="section-title serif">Experience</h2>
       <span class="section-rule"></span>
     </div>
@@ -818,7 +846,7 @@
 
   <section id="education">
     <div class="section-head">
-      <span class="section-tag">04</span>
+      <span class="section-tag">05</span>
       <h2 class="section-title serif">Education</h2>
       <span class="section-rule"></span>
     </div>
@@ -836,7 +864,7 @@
 
   <section id="contact">
     <div class="section-head">
-      <span class="section-tag">05</span>
+      <span class="section-tag">06</span>
       <h2 class="section-title serif">Contact</h2>
       <span class="section-rule"></span>
     </div>
