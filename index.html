@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Lokesh Vinnakota — Senior Java Developer specializing in HealthRules Payer configuration, integration, and enterprise data pipelines for the healthcare payer domain.">
+<title>Lokesh Vinnakota — Senior Java Developer, HealthRules Payer &amp; Integration</title>
+<style>
+  :root{
+    --bg:#EEF1EF;
+    --surface:#FFFFFF;
+    --surface-2:#E4E9E7;
+    --ink:#12202A;
+    --ink-soft:#4A5A61;
+    --ink-faint:#7C8C90;
+    --accent:#1F7A6C;
+    --accent-ink:#0E453C;
+    --accent-2:#B8701F;
+    --line:rgba(18,32,42,0.14);
+    --line-strong:rgba(18,32,42,0.28);
+    --shadow:0 1px 0 rgba(18,32,42,0.06);
+    --radius:3px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0D1417;
+      --surface:#131C20;
+      --surface-2:#182226;
+      --ink:#E7EEEC;
+      --ink-soft:#9FB0AC;
+      --ink-faint:#66807B;
+      --accent:#4FC3B0;
+      --accent-ink:#BEF0E5;
+      --accent-2:#E2A755;
+      --line:rgba(231,238,236,0.14);
+      --line-strong:rgba(231,238,236,0.26);
+      --shadow:0 1px 0 rgba(0,0,0,0.3);
+      color-scheme: dark;
+    }
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .mono{
+    font-family:ui-monospace,"Cascadia Code","SF Mono","Consolas","Liberation Mono",Menlo,monospace;
+  }
+
+  a{ color:var(--accent-ink); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  h1,h2,h3{ text-wrap:balance; margin:0; }
+
+  ::selection{ background:var(--accent); color:var(--surface); }
+
+  /* ---------- shell ---------- */
+  .shell{
+    display:flex;
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  .index-rail{
+    position:sticky;
+    top:0;
+    align-self:flex-start;
+    width:220px;
+    flex-shrink:0;
+    height:100vh;
+    padding:2.25rem 1.25rem;
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+
+  .rail-top .rail-id{
+    font-size:0.7rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .rail-top .rail-name{
+    margin-top:0.35rem;
+    font-size:1rem;
+    font-weight:600;
+  }
+
+  .rail-nav{
+    list-style:none;
+    margin:2.5rem 0 0 0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:0.55rem;
+  }
+  .rail-nav a{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    padding:0.15rem 0;
+    border-left:2px solid transparent;
+    padding-left:0.7rem;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .rail-nav a:hover{ color:var(--ink); }
+  .rail-nav a.active{
+    color:var(--ink);
+    border-left-color:var(--accent);
+    font-weight:600;
+  }
+
+  .rail-status{
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--accent);
+    flex-shrink:0;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.55; }
+  }
+
+  .main{
+    flex:1;
+    min-width:0;
+    padding:0 2.5rem 6rem 2.5rem;
+  }
+
+  section{
+    padding-top:3.5rem;
+    scroll-margin-top:1.5rem;
+  }
+  section + section{
+    border-top:1px solid var(--line);
+  }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:0.75rem;
+    margin-bottom:1.75rem;
+  }
+  .section-tag{
+    font-size:0.7rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    white-space:nowrap;
+  }
+  .section-rule{
+    height:1px;
+    background:var(--line);
+    flex:1;
+  }
+  .section-title{
+    font-size:1.5rem;
+    font-weight:700;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding-top:3rem;
+    border-top:none !important;
+  }
+  .hero-eyebrow{
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .hero h1{
+    margin-top:0.6rem;
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    font-weight:800;
+  }
+  .hero-role{
+    margin-top:0.85rem;
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+  }
+  .hero-lede{
+    margin-top:1rem;
+    max-width:60ch;
+    color:var(--ink-soft);
+    font-size:1rem;
+  }
+  .hero-current{
+    margin-top:1.5rem;
+    display:inline-flex;
+    align-items:center;
+    gap:0.55rem;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:0.5rem 0.85rem;
+  }
+  .hero-current strong{ color:var(--ink); font-weight:600; }
+
+  .hero-actions{
+    margin-top:1.75rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.75rem;
+  }
+  .btn{
+    font-size:0.85rem;
+    text-decoration:none;
+    padding:0.65rem 1.1rem;
+    border-radius:var(--radius);
+    border:1px solid var(--line-strong);
+    color:var(--ink);
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn.primary{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:var(--surface);
+    font-weight:600;
+  }
+  .btn:hover{ border-color:var(--accent); }
+
+  /* pipeline diagram */
+  .pipeline{
+    margin-top:3rem;
+    border:1px solid var(--line);
+    background:var(--surface);
+    border-radius:var(--radius);
+    padding:1.5rem 1.25rem 1.25rem;
+  }
+  .pipeline-label{
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:0.75rem;
+  }
+  .pipeline svg{ width:100%; height:auto; display:block; }
+  .pipeline-trace{
+    fill:none;
+    stroke:var(--line-strong);
+    stroke-width:1.5;
+  }
+  .pipeline-flow{
+    fill:none;
+    stroke:var(--accent);
+    stroke-width:1.5;
+    stroke-dasharray:5 7;
+    animation:flow 3.2s linear infinite;
+  }
+  @keyframes flow{ to{ stroke-dashoffset:-48; } }
+  .pipeline-node circle{
+    fill:var(--surface);
+    stroke:var(--ink-faint);
+    stroke-width:1.4;
+  }
+  .pipeline-node.hub circle{
+    stroke:var(--accent);
+    stroke-width:2;
+  }
+  .pipeline-node text{
+    fill:var(--ink-soft);
+    font-size:11px;
+  }
+  .pipeline-node .hub-text{ fill:var(--accent-ink); font-weight:600; }
+
+  /* ---------- summary ---------- */
+  .summary-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.75rem 2rem;
+  }
+  .summary-block .block-label{
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    margin-bottom:0.6rem;
+  }
+  .summary-block ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:0.55rem;
+  }
+  .summary-block li{
+    padding-left:1rem;
+    position:relative;
+    color:var(--ink-soft);
+    font-size:0.94rem;
+  }
+  .summary-block li::before{
+    content:"";
+    position:absolute;
+    left:0; top:0.55em;
+    width:5px; height:1px;
+    background:var(--ink-faint);
+  }
+  .summary-block li strong{ color:var(--ink); font-weight:600; }
+
+  /* ---------- skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px,1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .skill-card{
+    background:var(--surface);
+    padding:1.1rem 1.1rem 1.25rem;
+  }
+  .skill-card .cat{
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:0.7rem;
+  }
+  .chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.4rem;
+  }
+  .chip{
+    font-size:0.74rem;
+    padding:0.24rem 0.5rem;
+    border:1px solid var(--line-strong);
+    border-radius:2px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  /* ---------- experience ---------- */
+  .changelog{
+    display:flex;
+    flex-direction:column;
+    gap:2.75rem;
+  }
+  .entry-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:0.75rem 1rem;
+    margin-bottom:0.35rem;
+  }
+  .version-tag{
+    font-size:0.78rem;
+    color:var(--accent-ink);
+    background:var(--surface-2);
+    border:1px solid var(--line-strong);
+    padding:0.18rem 0.5rem;
+    border-radius:2px;
+    font-variant-numeric:tabular-nums;
+  }
+  .entry-org{ font-size:1.15rem; font-weight:700; }
+  .entry-role{
+    font-size:0.95rem;
+    color:var(--ink-soft);
+    margin-bottom:1rem;
+  }
+  .entry ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+  }
+  .entry li{
+    padding-left:1.1rem;
+    position:relative;
+    font-size:0.93rem;
+    color:var(--ink-soft);
+  }
+  .entry li::before{
+    content:"›";
+    position:absolute;
+    left:0;
+    color:var(--accent);
+    font-family:ui-monospace,monospace;
+  }
+  .env-line{
+    margin-top:1.1rem;
+    padding-top:0.9rem;
+    border-top:1px dashed var(--line);
+    font-size:0.78rem;
+    color:var(--ink-faint);
+    line-height:1.7;
+  }
+  .env-line b{
+    color:var(--ink-soft);
+    letter-spacing:0.08em;
+    font-weight:600;
+  }
+
+  /* ---------- education ---------- */
+  .edu-list{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .edu-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:1rem;
+    padding:1rem 1.1rem;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--surface);
+  }
+  .edu-degree{ font-weight:600; }
+  .edu-school{ color:var(--ink-soft); font-size:0.9rem; }
+
+  /* ---------- contact / footer ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .contact-card{
+    background:var(--surface);
+    padding:1.25rem;
+    text-decoration:none;
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    gap:0.4rem;
+  }
+  .contact-card .k{
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .contact-card .v{
+    font-size:0.95rem;
+    font-variant-numeric:tabular-nums;
+    word-break:break-word;
+  }
+  .contact-card:hover .v{ color:var(--accent-ink); }
+
+  footer{
+    padding:2.5rem 2.5rem 3rem;
+    color:var(--ink-faint);
+    font-size:0.78rem;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:0.5rem;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:920px){
+    .shell{ flex-direction:column; }
+    .index-rail{
+      position:sticky;
+      top:0;
+      width:100%;
+      height:auto;
+      flex-direction:row;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.9rem 1.25rem;
+      background:var(--bg);
+      z-index:10;
+      border-right:none;
+      border-bottom:1px solid var(--line);
+    }
+    .rail-top{ display:flex; align-items:baseline; gap:0.5rem; }
+    .rail-top .rail-name{ margin-top:0; }
+    .rail-nav{
+      margin:0;
+      flex-direction:row;
+      gap:1rem;
+      overflow-x:auto;
+    }
+    .rail-nav a{ border-left:none; padding-left:0; white-space:nowrap; border-bottom:2px solid transparent; padding-bottom:2px; }
+    .rail-nav a.active{ border-left-color:transparent; border-bottom-color:var(--accent); }
+    .rail-status{ display:none; }
+    .main{ padding:0 1.25rem 4rem; }
+    .summary-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <nav class="index-rail" aria-label="Section index">
+    <div>
+      <div class="rail-top">
+        <span class="rail-id mono">IDX</span>
+        <span class="rail-name">Lokesh Vinnakota</span>
+      </div>
+      <ul class="rail-nav mono" id="railNav">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="rail-status mono">
+      <span class="dot" aria-hidden="true"></span>
+      <span>CVS Health · Present</span>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <section id="home" class="hero">
+      <div class="hero-eyebrow mono">JAVA / J2EE — HEALTHCARE PAYER SYSTEMS</div>
+      <h1>Lokesh Vinnakota</h1>
+      <p class="hero-role">Senior Java Developer specializing in HealthRules Payer configuration, integration, and enterprise data pipelines for the health plan / TPA space.</p>
+      <p class="hero-lede">6+ years building and supporting the systems that move claims, benefits, and provider data between HealthRules Payer and the enterprise applications around it — SOAP/XML interfaces, JMS messaging, and the WebLogic infrastructure underneath.</p>
+
+      <div class="hero-current mono">
+        <span class="dot" aria-hidden="true"></span>
+        Currently: <strong>Senior Java Developer, HealthRules Payer &amp; Integration</strong> @ CVS Health
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="mailto:lokeshv3932@gmail.com">Email me</a>
+        <a class="btn" href="http://www.linkedin.com/in/vinnakot" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href="tel:+15139860334">+1 (513) 986-0334</a>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipeline-label mono">DATA FLOW — TYPICAL HEALTHRULES PAYER INTEGRATION</div>
+        <svg viewBox="0 0 900 110" role="img" aria-label="Diagram: Upstream Systems connects to HealthRules Payer, which connects to Claims Adjudication, Benefits Administration, and Provider Data.">
+          <path class="pipeline-trace" d="M60,55 H840" />
+          <path class="pipeline-flow" d="M60,55 H840" />
+          <g class="pipeline-node">
+            <circle cx="60" cy="55" r="7"/>
+            <text x="60" y="85" text-anchor="middle">Upstream</text>
+            <text x="60" y="98" text-anchor="middle">Systems</text>
+          </g>
+          <g class="pipeline-node hub">
+            <circle cx="300" cy="55" r="9"/>
+            <text class="hub-text" x="300" y="30" text-anchor="middle">HealthRules Payer</text>
+            <text x="300" y="85" text-anchor="middle">SOAP / XML / JMS</text>
+          </g>
+          <g class="pipeline-node">
+            <circle cx="510" cy="55" r="7"/>
+            <text x="510" y="85" text-anchor="middle">Claims</text>
+            <text x="510" y="98" text-anchor="middle">Adjudication</text>
+          </g>
+          <g class="pipeline-node">
+            <circle cx="690" cy="55" r="7"/>
+            <text x="690" y="85" text-anchor="middle">Benefits</text>
+            <text x="690" y="98" text-anchor="middle">Administration</text>
+          </g>
+          <g class="pipeline-node">
+            <circle cx="840" cy="55" r="7"/>
+            <text x="840" y="85" text-anchor="middle">Provider</text>
+            <text x="840" y="98" text-anchor="middle">Data</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="summary">
+      <div class="section-head">
+        <span class="section-tag mono">01</span>
+        <h2 class="section-title">Summary</h2>
+        <span class="section-rule"></span>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-block">
+          <div class="block-label mono">Payer domain</div>
+          <ul>
+            <li>6+ years across Java/J2EE full stack development, with hands-on <strong>HealthRules Payer</strong> configuration, integration, and support in the healthcare payer domain.</li>
+            <li>Direct exposure to core administrative processing (CAPS) — claims adjudication, member enrollment, and provider network data in a health plan/TPA setting.</li>
+            <li>Integrates HealthRules Payer with enterprise systems for claims processing, benefits administration, and provider data management — supporting data loads, UAT, and production readiness.</li>
+          </ul>
+        </div>
+        <div class="summary-block">
+          <div class="block-label mono">Engineering</div>
+          <ul>
+            <li>Proficient in Java/J2EE (Servlets, JSP, JDBC, EJB, JPA), <strong>Spring</strong>, <strong>Spring Boot</strong>, and <strong>Hibernate</strong> for multi-tier backend development.</li>
+            <li>Strong background in Web Services (SOAP, WSDL), XML, JMS, and system integration / data migration across enterprise applications.</li>
+            <li>Working knowledge of ESB and integration tooling — Spring Integration, Apache Camel.</li>
+          </ul>
+        </div>
+        <div class="summary-block">
+          <div class="block-label mono">Platform &amp; delivery</div>
+          <ul>
+            <li>Hands-on with <strong>Oracle WebLogic</strong> and Linux environments for deployment, configuration, and troubleshooting.</li>
+            <li>SQL and relational database design, stored procedures, and performance tuning for enterprise data workflows.</li>
+            <li>CI/CD via Jenkins and Bitbucket; Agile/Scrum and Kanban delivery, code reviews, bug fixing, and release support.</li>
+          </ul>
+        </div>
+        <div class="summary-block">
+          <div class="block-label mono">Collaboration &amp; AI tooling</div>
+          <ul>
+            <li>Effective communicator, comfortable working directly with clients to translate business requirements into technical solutions.</li>
+            <li>Troubleshoots production issues in HealthRules Payer integrations cross-functionally with QA, business analysts, and release management.</li>
+            <li>Exposure to AI-assisted / agentic development — task decomposition for AI-assisted coding, guardrails for AI-generated code, and AI tooling in CI/CD pipelines.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="section-head">
+        <span class="section-tag mono">02</span>
+        <h2 class="section-title">Technical Stack</h2>
+        <span class="section-rule"></span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="cat mono">Payer Platform</div>
+          <div class="chip-row">
+            <span class="chip">HealthRules Payer</span><span class="chip">Configuration</span><span class="chip">Claims / Benefits Support</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Java / J2EE</div>
+          <div class="chip-row">
+            <span class="chip">Servlets</span><span class="chip">JSP</span><span class="chip">JSF</span><span class="chip">JSTL</span><span class="chip">EJB</span><span class="chip">JDBC</span><span class="chip">JMS</span><span class="chip">JavaBeans</span><span class="chip">JAX-RS</span><span class="chip">JAX-WS</span><span class="chip">SOAP</span><span class="chip">REST</span><span class="chip">WSDL</span><span class="chip">XML</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Languages</div>
+          <div class="chip-row">
+            <span class="chip">Java 17/11/8</span><span class="chip">J2EE</span><span class="chip">SQL</span><span class="chip">PL/SQL</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">App / Web Servers</div>
+          <div class="chip-row">
+            <span class="chip">WebLogic 12.x</span><span class="chip">Apache Tomcat</span><span class="chip">JBoss AS</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Frameworks</div>
+          <div class="chip-row">
+            <span class="chip">Spring MVC</span><span class="chip">Spring Boot</span><span class="chip">Spring AOP</span><span class="chip">Spring IOC</span><span class="chip">Spring Security</span><span class="chip">Hibernate</span><span class="chip">Spring Integration</span><span class="chip">Apache Camel</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Integration / ESB</div>
+          <div class="chip-row">
+            <span class="chip">SOAP/WSDL</span><span class="chip">XML</span><span class="chip">JMS</span><span class="chip">Apache Camel</span><span class="chip">Spring Integration</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Operating Systems</div>
+          <div class="chip-row">
+            <span class="chip">Linux</span><span class="chip">Unix</span><span class="chip">Windows</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Databases</div>
+          <div class="chip-row">
+            <span class="chip">Oracle</span><span class="chip">MySQL</span><span class="chip">MS SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">DB2</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">CI/CD &amp; Build</div>
+          <div class="chip-row">
+            <span class="chip">Jenkins</span><span class="chip">Maven</span><span class="chip">Gradle</span><span class="chip">ANT</span><span class="chip">Bitbucket</span><span class="chip">GIT</span><span class="chip">SVN</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Testing</div>
+          <div class="chip-row">
+            <span class="chip">JUnit</span><span class="chip">Mockito</span><span class="chip">SoapUI</span><span class="chip">Postman</span><span class="chip">JMeter</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">Methodologies</div>
+          <div class="chip-row">
+            <span class="chip">Agile</span><span class="chip">Scrum</span><span class="chip">Kanban</span><span class="chip">SDLC</span><span class="chip">TDD</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="cat mono">AI-Assisted Dev</div>
+          <div class="chip-row">
+            <span class="chip">Agentic coding tools</span><span class="chip">Task decomposition</span><span class="chip">AI code review &amp; guardrails</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-head">
+        <span class="section-tag mono">03</span>
+        <h2 class="section-title">Experience</h2>
+        <span class="section-rule"></span>
+      </div>
+
+      <div class="changelog">
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="version-tag mono">v2025.03 — PRESENT</span>
+            <span class="entry-org">CVS Health</span>
+          </div>
+          <div class="entry-role">Senior Java Developer — HealthRules Payer &amp; Integration</div>
+          <ul>
+            <li>Configured and supported HealthRules Payer modules for claims adjudication, benefits administration, and provider data management, working directly with business teams to translate requirements into system configuration.</li>
+            <li>Built and maintained Java/J2EE backend services integrating HealthRules Payer with upstream and downstream enterprise systems via SOAP, WSDL, and XML-based interfaces.</li>
+            <li>Supported data loads, data migration, and issue resolution during UAT and production readiness cycles for HealthRules Payer releases.</li>
+            <li>Developed and maintained JMS-based messaging for asynchronous data exchange between HealthRules Payer and integration partners.</li>
+            <li>Deployed and troubleshot applications on Oracle WebLogic in Linux environments, supporting production stability and performance.</li>
+            <li>Explored AI-assisted development tools to accelerate routine coding tasks — defining task breakdowns for AI-assisted execution and reviewing AI-generated code against team guardrails before merging.</li>
+            <li>Contributed to CI/CD pipeline improvements using Jenkins and Bitbucket for integration components.</li>
+          </ul>
+          <div class="env-line"><b class="mono">ENV</b> — Java · J2EE · HealthRules Payer · Spring · Spring Boot · Hibernate · SOAP · WSDL · XML · JMS · Oracle WebLogic · Linux · SQL · PL/SQL · Jenkins · Bitbucket · JUnit · Agile/Scrum</div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="version-tag mono">v2022.07 — v2024.07</span>
+            <span class="entry-org">Optum (UnitedHealth Group)</span>
+          </div>
+          <div class="entry-role">Java Developer</div>
+          <ul>
+            <li>Started as Junior Java Developer supporting core claims and benefits administration systems; promoted to Associate Java Developer with increased ownership of integration components.</li>
+            <li>Worked with HealthRules Payer for claims processing and benefits configuration, supporting enhancements and defect resolution.</li>
+            <li>Built and consumed SOAP/WSDL web services and XML-based interfaces between HealthRules Payer and adjacent claims and provider systems.</li>
+            <li>Used JMS for reliable, asynchronous messaging between backend services handling claims and member data.</li>
+            <li>Performed root-cause analysis on claims processing defects, coordinating fixes across configuration and custom code layers.</li>
+            <li>Integrated Apache Camel routes to orchestrate data flow between HealthRules Payer and external claims clearinghouses and provider data sources.</li>
+            <li>Configured benefit plans and product structures from requirements gathered directly from analysts and stakeholders.</li>
+          </ul>
+          <div class="env-line"><b class="mono">ENV</b> — Java · J2EE · HealthRules Payer · Spring · Hibernate · SOAP · WSDL · XML · JMS · Oracle WebLogic · Linux · SQL · PL/SQL · Jenkins · Maven · GIT · JIRA · Agile</div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="version-tag mono">v2021.07 — v2022.06</span>
+            <span class="entry-org">Idea Labs, Hyderabad</span>
+          </div>
+          <div class="entry-role">Software Developer</div>
+          <ul>
+            <li>Developed backend modules using Java, Spring MVC, and Hibernate for multi-tier web applications.</li>
+            <li>Designed and developed RESTful APIs using Spring Boot; consumed third-party REST APIs and parsed JSON responses for internal workflows.</li>
+            <li>Built and consumed RESTful and SOAP web services, using Postman and SoapUI to validate endpoints.</li>
+            <li>Implemented CRUD operations via Spring Data JPA and Hibernate ORM; wrote DAO layer classes for connections, transactions, and entity mappings.</li>
+            <li>Built responsive front-end components with HTML5, CSS3, JavaScript, and jQuery consuming backend REST services.</li>
+            <li>Debugged and resolved production support tickets, collaborating with QA and senior developers.</li>
+          </ul>
+          <div class="env-line"><b class="mono">ENV</b> — Java · Spring MVC · Hibernate · REST · SOAP · XML · SQL · JUnit · GIT · Jenkins · Agile</div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="version-tag mono">v2020.04 — v2021.06</span>
+            <span class="entry-org">MCS, Hyderabad</span>
+          </div>
+          <div class="entry-role">Software Developer Intern</div>
+          <ul>
+            <li>Assisted in developing and testing Java-based modules for internal applications.</li>
+            <li>Built foundational experience in Core Java, OOP concepts, SQL, and basic web application development.</li>
+            <li>Wrote and tested Java programs applying collections, exception handling, and multithreading basics.</li>
+            <li>Assisted senior developers writing and executing JUnit test cases to validate module functionality.</li>
+          </ul>
+          <div class="env-line"><b class="mono">ENV</b> — Java · SQL · HTML/CSS · GIT</div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head">
+        <span class="section-tag mono">04</span>
+        <h2 class="section-title">Education</h2>
+        <span class="section-rule"></span>
+      </div>
+      <div class="edu-list">
+        <div class="edu-item">
+          <span class="edu-degree">Master's</span>
+          <span class="edu-school">University of Cincinnati</span>
+        </div>
+        <div class="edu-item">
+          <span class="edu-degree">Bachelor's</span>
+          <span class="edu-school">Vignan's Foundation for Science, Technology &amp; Research (VFSTR), India</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <span class="section-tag mono">05</span>
+        <h2 class="section-title">Contact</h2>
+        <span class="section-rule"></span>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:lokeshv3932@gmail.com">
+          <span class="k mono">Email</span>
+          <span class="v mono">lokeshv3932@gmail.com</span>
+        </a>
+        <a class="contact-card" href="tel:+15139860334">
+          <span class="k mono">Phone</span>
+          <span class="v mono">+1 (513) 986-0334</span>
+        </a>
+        <a class="contact-card" href="http://www.linkedin.com/in/vinnakot" target="_blank" rel="noopener">
+          <span class="k mono">LinkedIn</span>
+          <span class="v mono">/in/vinnakot ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>Lokesh Vinnakota — Java / J2EE, HealthRules Payer &amp; Integration</span>
+      <span class="mono">BUILD: STABLE</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('#railNav a'));
+    var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    if(!('IntersectionObserver' in window) || sections.length === 0) return;
+    var byId = {};
+    links.forEach(function(a){ byId[a.getAttribute('href').slice(1)] = a; });
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var link = byId[entry.target.id];
+        if(!link) return;
+        if(entry.isIntersecting){
+          links.forEach(function(l){ l.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>
